@@ -12,7 +12,7 @@ To use SmartCapture, follow these steps to set up the environment and dependenci
 - Tesseract OCR installed (`brew install tesseract` using Homebrew).
 - An OpenAI API key with access to the GPT-3.5-turbo model.
 
-### Step 1: Clone the Repository
+### Step 1: After creating and activating your conda environment Clone the Repository (should work with venv as well)
 ```bash
 git clone https://github.com/PanosKolyvakis/SmartCapture-Image-Text-Extraction-Analysis
 cd SmartCapture-Image-Text-Extraction-Analysis
@@ -22,7 +22,7 @@ cd SmartCapture-Image-Text-Extraction-Analysis
 Install the required Python dependencies using the provided requirements.txt file:
 
 ```bash
-pip install -r requirements.txt
+conda install -r requirements.txt
 ```
 ### Step 3: Set the OpenAI API Key
 Set your OpenAI API key as an environment variable on your Mac for security:
@@ -33,7 +33,8 @@ export OPENAI_API_KEY='your-api-key-here'
 For a permanent setup, add this line to your ~/.zshrc or ~/.bash_profile and run source on the respective file or restart your terminal.
 
 ### Step 4: Automator Service
-Save the provided Automator workflow as a Quick Action on your Mac.
+Save the provided Automator workflow as a Quick Action on your Mac. Check Screenshot file for help.
+
 
 ### Step 5: Keyboard Shortcut
 Bind the Quick Action to a keyboard shortcut in System Preferences:
