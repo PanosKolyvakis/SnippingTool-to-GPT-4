@@ -23,6 +23,6 @@ readable and convenient presentation of results.
 ## Installation
 Clone the repository and navigate to the downloaded directory:
 ```bash
-git clone [repository-url]
-cd [repository-name]
+git clone [https://github.com/PanosKolyvakis/SmartCapture-Image-Text-Extraction-Analysis]
+cd [SmartCapture-Image-Text-Extraction]
 
