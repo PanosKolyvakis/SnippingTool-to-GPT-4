@@ -8,6 +8,7 @@ To use SmartCapture, follow these steps to set up the environment and dependenci
 
 ### Prerequisites
 - macOS with Automator.
+
 - Python 3 installed and accessible within a Conda environment.
 - Tesseract OCR installed (`brew install tesseract` using Homebrew).
 - An OpenAI API key with access to the GPT-3.5-turbo model.
