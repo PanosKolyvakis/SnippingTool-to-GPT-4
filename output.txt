@@ -1,0 +1,9 @@
+This is a short snippet of code written in Python. 
+
+The code is designed to retrieve an API key from an environment variable, specifically the `OPENAI_API_KEY`. The API key is typically used to access an external service or application, in this case, the OpenAI API. 
+
+The code first tries to get the API key using `os.getenv()`, which is a function in the `os` module to retrieve values of environment variables. 
+
+If the API key is not found (i.e., `None`), the code will print a message saying that the `OPENAI_API_KEY` environment variable is not set. 
+
+Otherwise, if the API key is found, the code will print a message saying that the `OPENAI_API_KEY` environment variable is set.
