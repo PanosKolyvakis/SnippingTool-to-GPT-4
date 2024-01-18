@@ -16,24 +16,24 @@ To use SmartCapture, follow these steps to set up the environment and dependenci
 ```bash
 git clone https://github.com/PanosKolyvakis/SmartCapture-Image-Text-Extraction-Analysis
 cd SmartCapture-Image-Text-Extraction-Analysis
-Step 2: Install Python Dependencies
+
+### Step 2: Install Python Dependencies
 Install the required Python dependencies using the provided requirements.txt file:
 
-bash
-Copy code
+```bash
 pip install -r requirements.txt
-Step 3: Set the OpenAI API Key
+
+### Step 3: Set the OpenAI API Key
 Set your OpenAI API key as an environment variable on your Mac for security:
 
-bash
-Copy code
+```bash
 export OPENAI_API_KEY='your-api-key-here'
 For a permanent setup, add this line to your ~/.zshrc or ~/.bash_profile and run source on the respective file or restart your terminal.
 
-Step 4: Automator Service
+### Step 4: Automator Service
 Save the provided Automator workflow as a Quick Action on your Mac.
 
-Step 5: Keyboard Shortcut
+### Step 5: Keyboard Shortcut
 Bind the Quick Action to a keyboard shortcut in System Preferences:
 
 Go to System Preferences > Keyboard > Shortcuts.
