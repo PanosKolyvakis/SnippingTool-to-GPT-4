@@ -16,7 +16,7 @@ To use SmartCapture, follow these steps to set up the environment and dependenci
 ### Step 1: After creating and activating your conda environment Clone the Repository (should work with venv as well)
 ```bash
 git clone https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT
-cd SmartCapture-Image-Text-Extraction-Analysis
+cd -to directory
 ```
 
 ### Step 2: Install Python Dependencies
