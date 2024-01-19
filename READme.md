@@ -62,13 +62,7 @@ Save the provided Automator workflow as a Quick Action on your Mac. Check Screen
          - You can test the Quick Action within Automator by pressing the "Run" button at the top right corner of the window.
          - Alternatively, access the Quick Action from the Services menu by right-clicking on the desktop or Finder and navigating to Services > SmartCapture (or whatever name you've given).
   
-  7. **Assign a Keyboard Shortcut**:
-     - Once saved, you can assign a keyboard shortcut to this Quick Action by going to System Preferences > Keyboard > Shortcuts > Services.
-     - Locate your Quick Action and add a shortcut by clicking on "none" and pressing the desired key combination.
-  
-  Refer to the included screenshots for a visual aid on setting up the Quick Action in Automator.
-  
-  By following these steps, you will have SmartCapture readily available at your fingertips, boosting your productivity by quickly extracting and analyzing text from anywhere on your screen.
+
 
 
 ### Step 5: Keyboard Shortcut
