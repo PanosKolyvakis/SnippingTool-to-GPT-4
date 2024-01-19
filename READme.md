@@ -35,6 +35,40 @@ For a permanent setup, add this line to your ~/.zshrc or ~/.bash_profile and run
 
 ### Step 4: Automator Service
 Save the provided Automator workflow as a Quick Action on your Mac. Check Screenshot file for help.
+## Step 4: Automator Service
+
+
+      1. **Open Automator**:
+         - Find Automator in your Applications folder and open it.
+         - Choose "New Document" when prompted.
+      
+      2. **Create a Quick Action**:
+         - Select "Quick Action" as the type of your new Automator document.
+      
+      3. **Configure the Quick Action**:
+         - In the top panel, set the "Workflow receives" dropdown to "no input" to ensure that the Quick Action doesn't expect any file or text input.
+         - Choose "any application" or a specific application from which you want the Quick Action to be available.
+      
+      4. **Add a Run Shell Script Action**:
+         - Search for the "Run Shell Script" action in the Actions library on the left side.
+         - Drag the "Run Shell Script" action to the workflow area on the right.
+         - Set "Shell" to `/bin/zsh`.
+         - Paste your shell script into the text area provided in the "Run Shell Script" action.
+      
+      5. **Save the Quick Action**:
+         - Go to File > Save and give your Quick Action a meaningful name, like "SmartCapture."
+      
+      6. **Test the Quick Action**:
+         - You can test the Quick Action within Automator by pressing the "Run" button at the top right corner of the window.
+         - Alternatively, access the Quick Action from the Services menu by right-clicking on the desktop or Finder and navigating to Services > SmartCapture (or whatever name you've given).
+  
+  7. **Assign a Keyboard Shortcut**:
+     - Once saved, you can assign a keyboard shortcut to this Quick Action by going to System Preferences > Keyboard > Shortcuts > Services.
+     - Locate your Quick Action and add a shortcut by clicking on "none" and pressing the desired key combination.
+  
+  Refer to the included screenshots for a visual aid on setting up the Quick Action in Automator.
+  
+  By following these steps, you will have SmartCapture readily available at your fingertips, boosting your productivity by quickly extracting and analyzing text from anywhere on your screen.
 
 
 ### Step 5: Keyboard Shortcut
