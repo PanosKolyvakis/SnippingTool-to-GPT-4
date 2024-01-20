@@ -19,16 +19,12 @@ image = Image.open(path)
 extracted_text = pytesseract.image_to_string(image)
 
 # Construct the prompt text with the extracted text
-prompt_text = (
-    f'The following text was extracted from an image: {extracted_text}. '
-    'Can you explain what this means? If it is a paragraph provide a small easy-to-understand overview. '
-    'If it is a question please answer it. If it looks like a SQL or programming question please write code to solve it'
-)
+prompt_text= f'The following text was extracted from  a question: {extracted_text}.   This is a verbal reasoning test. Answer with only information received from the text. If there are what appears to be options (A , B ,C etc) then consider all answers equally and  give me the answer. For False or True the information has to be explicitely contained within the text otherwise choose Cannot Say'
 
 # Try to get a response from OpenAI's API
 try:
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": prompt_text}
