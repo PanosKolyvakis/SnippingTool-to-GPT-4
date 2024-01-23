@@ -1,32 +1,34 @@
 #!/bin/zsh
 
-# Add Conda to PATH (the user needs to replace the placeholder with the actual path to their Conda bin directory)
-export PATH="/path/to/conda/bin:$PATH"
+# Add Conda to PATH
+# Assuming Conda is installed in a standard location that's already in the PATH
+export PATH="$HOME/miniconda3/bin:$PATH"
 
-# Source the Conda configuration (the user needs to replace the placeholder with the actual path to their conda.sh)
-source /path/to/conda/etc/profile.d/conda.sh
-# Activate the Conda environment (the user should replace 'your_env' with the name of their Conda environment)
-conda activate your_env
+# Activate your Conda environment
+# It's better to activate conda by initializing in .zshrc or .bashrc
+# This line is here just in case it's not initialized
+source "$HOME/miniconda3/etc/profile.d/conda.sh" || echo "Error: Conda not found. Please make sure it's installed and added to your PATH."
+conda activate ImageToText || echo "Error: Failed to activate Conda environment 'ImageToText'."
 
-# Set the directory where you want to save the screenshot and output file
-# The user should replace these placeholders with the paths where they want to save screenshots and outputs
-screenshot_directory="path/to/directory/for/screenshot"
+# Define screenshot directory and filenames
+screenshot_directory="$HOME/VSprojects/ImageToText"
 screenshot_filename="screenshot.png"
 output_filename="output.txt"
 
-# Take a screenshot and save it to the specified directory
+# Create the directory if it doesn't exist
+mkdir -p "$screenshot_directory"
+
+# Capture the screenshot
 screencapture -i -t png "$screenshot_directory/$screenshot_filename"
 
 # Check if the user canceled or captured the screenshot
 if [ $? -eq 0 ]; then
     echo "Screenshot saved successfully."
 
-    # Call the Python script to process the screenshot
-    # The user should replace 'path/to/python/script' with the path to their Python script
-    python3 path/to/python/script/main.py > "$screenshot_directory/$output_filename"
-    
-    # Open the output text file in TextEdit or any other preferred text editor
-    open -a TextEdit "$screenshot_directory/$output_filename"
+    # Call your Python script to process the screenshot
+    # Assuming the script is in the same directory as the screenshot
+    python3 "$screenshot_directory/main.py" > "$screenshot_directory/$output_filename" || echo "Error: Failed to run the script 'main.py'."
+	python3 "$screenshot_directory/IDE.py" || echo "Error: Failed to run the script 'IDE.py'."
 else
     echo "Screenshot capture canceled."
 fi
