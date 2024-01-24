@@ -14,7 +14,7 @@ def run_gui():
     root = tk.Tk()
     root.title("GPT-4 Response")
 
-    image_path = '/Users/panoskolyvakis/VSprojects/ImageToText/ImageGraphic.png'
+    image_path = 'your_image_path'
     image = Image.open(image_path)
 
     # Resize the image to desired size, e.g., (width, height)
@@ -28,8 +28,9 @@ def run_gui():
     prompt_var = tk.StringVar(root)
     question_label = tk.Label(root, text="What do you want to know?")
     question_label.pack()
-    prompts = ['Verbal reasoning test', "General overview", "Coding question" , 'Rewrite this Text']
-    feed_to_gpt = ["Verbal reasoning test: if this contains many letters or possible answers please answer only from the text and return the best answer deduced only from the text" , "Give me a general overview of this text, what does the author mean" , "this is a coding question, please return your best effort in writing code to solve the question" , 'Rewrite the following text']
+    
+    prompts = ['Verbal reasoning test', "General overview", "Coding question" , 'Rewrite this Text' , 'Explain code']
+    feed_to_gpt = ["Verbal reasoning test: if this contains many letters or possible answers please answer only from the text and return the best answer deduced only from the text" , "Give me a general overview of this text, what does the author mean" , "this is a coding question, please return your best effort in writing code to solve the question" , 'Rewrite the following text' , 'write this code line by line in different boxes and explain each line of the code seperately. Use ``` line of code ``` and then explanation in formating']
 
     prompt_menu = ttk.Combobox(root, textvariable=prompt_var, values=prompts)
     prompt_menu.pack()
@@ -44,4 +45,4 @@ def run_gui():
 
     root.mainloop()
 
-    return feed_to_gpt[prompts.index(selected_prompt)]
+    return feed_to_gpt[prompts.index(selected_prompt)] 
