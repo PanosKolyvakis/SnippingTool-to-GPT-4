@@ -1,16 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
 import re
+from Config import PathConfig
 
 class config:
     font_size = 15
     font_type = 'Helvetica'
     code_font_type = 'Consolas'
-    file_path = 'your_file_path'
-    multiple_test_path = '/any_Test'
+    multiple_test_path = '/Users/panoskolyvakis/VSprojects/ImageTOtext/testmultiplelines.txt'
     # window size 
-    window_width = 800  # Width in pixels
-    window_height = 600  # Height in pixels
+    window_width = 800  
+    window_height = 800 
+    background_color = '#FAF0E6' # shade of white in HTML syntax
+    code_widget_color = '#333333'
+
 
 
 def apply_code_highlighting(text_widget):
@@ -64,50 +67,102 @@ def apply_code_highlighting(text_widget):
                     start_idx = end_idx
 
 
-def create_label_widget(root, text):
-    """Create a label for non-code text."""
 
-    def on_label_resize(event):
-        label.config(wraplength=event.width)
+def create_label_widget(frame, text):
+    """Create a text widget for non-code text with dynamic height based on the text length and window width."""
 
-    root.geometry(f"{config.window_width}x{config.window_height}")
+    def calculate_text_height(text, window_width, font_size):
+        """Estimate the number of lines the text will occupy."""
+        avg_char_width = font_size * 0.6  # Rough estimate of average character width
+        max_chars_per_line = window_width / avg_char_width
+        lines = text.split('\n')
+        total_lines = sum(len(line) / max_chars_per_line for line in lines)
+        return max(int(total_lines), 1)  # Ensure minimum height is 1
 
-    label = tk.Label(root, text=text, font=(config.font_type, config.font_size))
-    label.pack(fill='both', expand=True, padx=5, pady=5)
-    label.bind('<Configure>', on_label_resize)
+    text_height = calculate_text_height(text, config.window_width, config.font_size)
 
-    return label
+    # Create a text widget with calculated height
+    text_widget = tk.Text(frame, font=(config.font_type, config.font_size), wrap='word', height=text_height, bd=0, highlightthickness=0, bg='#FAF0E6', fg='black')
+
+    # Insert the provided text
+    text_widget.insert('1.0', text)
+
+    # Make the text widget read-only
+    text_widget.config(state='disabled')
+
+    # Pack the text widget
+    text_widget.pack(fill='both', expand=True, padx=15, pady=15)
+
+    return text_widget
 
 
+# def create_code_text_widget(frame, code_text):
+#     """Create a Text widget for a block of code."""
+#     max_height = 3
+#     frame.config(bg=config.background_color , highlightthickness=0, bd= 0 )
+#     text_widget = tk.Text(frame, wrap='none', font=(config.code_font_type, config.font_size), 
+#                           height=max_height, bg=config.background_color, fg='black',  # Set bg color
+#                           bd=0.1, highlightthickness=1)  # Set border and highlight thickness to 0
 
+#     apply_code_highlighting(text_widget)
+
+#     lines = code_text.split('\n')
+#     for line in lines:
+#         # Calculate the current line's indentation (number of leading spaces)
+#         indentation = len(line) - len(line.lstrip())
+        
+#         # Insert the line with the correct indentation
+#         text_widget.insert('end', ' ' * indentation + line.lstrip() + '\n')
+
+#     if len(lines) > max_height:
+#         # If there are more lines than the maximum height, add a vertical scrollbar
+#         scroll_y = tk.Scrollbar(frame, orient="vertical", command=text_widget.yview)
+#         text_widget.configure(yscrollcommand=scroll_y.set)
+#         scroll_y.pack(side='right', fill='y')
+
+#     text_widget.pack(side='left', expand=True, fill='both', padx=10, pady=2)
+#     text_widget.config(state='disabled')
+
+#     copy_button = tk.Button(frame, text="Copy", command=lambda widget=text_widget: copy_code(widget), 
+#                             bg=config.background_color, relief='flat')  # Set the bg color to match your background
+
+#     copy_button.pack(side='bottom', padx=5, pady=2)
+    
+#     return apply_code_highlighting(text_widget)
 def create_code_text_widget(frame, code_text):
     """Create a Text widget for a block of code."""
-    max_height = 3
+    max_height = 1
+    # Choose a less dark color, e.g., dark grey
+    code_bg_color = '#2b2b2b'  # This is a softer dark color
 
-    text_widget = tk.Text(frame, wrap='none', font=(config.code_font_type, config.font_size), height=max_height)
+    # Configure the frame to have no border and match the Text widget bg color
+    frame.config(bg=code_bg_color, bd=0, highlightthickness=0)
+
+    text_widget = tk.Text(frame, wrap='none', font=(config.code_font_type, config.font_size),
+                          height=max_height, bg=code_bg_color, fg='white', insertbackground='white',
+                          bd=0, highlightthickness=0, padx=10, pady=0)
 
     apply_code_highlighting(text_widget)
 
+    # Insert the code text
     lines = code_text.split('\n')
     for line in lines:
-        # Calculate the current line's indentation (number of leading spaces)
-        indentation = len(line) - len(line.lstrip())
-        
-        # Insert the line with the correct indentation
-        text_widget.insert('end', ' ' * indentation + line.lstrip() + '\n')
+        text_widget.insert('end', line + '\n')
 
+    # If there are more lines than the maximum height, add a scrollbar
     if len(lines) > max_height:
-        # If there are more lines than the maximum height, add a vertical scrollbar
-        scroll_y = tk.Scrollbar(frame, orient="vertical", command=text_widget.yview)
+        scroll_y = tk.Scrollbar(frame, orient="vertical", command=text_widget.yview, bg=code_bg_color)
         text_widget.configure(yscrollcommand=scroll_y.set)
-        scroll_y.pack(side='right', fill='y')
+        scroll_y.pack(side='right', fill='y', in_=text_widget)
 
-    text_widget.pack(side='left', expand=True, fill='both', padx=3, pady=3)
+    text_widget.pack(side='top', fill='both', expand=True, padx=10, pady=2)
     text_widget.config(state='disabled')
 
-    copy_button = tk.Button(frame, text="Copy", command=lambda widget=text_widget: copy_code(widget))
-    copy_button.pack(side='bottom', padx=5, pady=5)
-    
+    # Create the copy button within the frame, with no border
+    copy_button = tk.Button(frame, text="Copy", command=lambda: copy_code(text_widget),
+                            bg=code_bg_color, fg='black', relief='flat', highlightthickness=0)
+    copy_button.pack(side='right', padx=10, pady=2)
+
     return apply_code_highlighting(text_widget)
 
 
@@ -159,7 +214,6 @@ def find_code(response):
     return sections
 
 
-
 def calculate_window_size(gpt_response, max_width=config.window_width, max_height=config.window_height, char_width=8, line_height=20):
     lines = gpt_response.split('\n')
     num_lines = len(lines)
@@ -168,30 +222,51 @@ def calculate_window_size(gpt_response, max_width=config.window_width, max_heigh
     width = min(max_line_length * char_width, max_width)
     height = min(num_lines * line_height, max_height)
 
-    return width, height
+    return width if width > 300 else 300 , height if height > 300 else 300
+
 
 
 
 def main_s():
     global root
+    # configuring the position, color and size of the background
+
+    path_config = PathConfig()
+    # path_config.api_output_path --- > this should be run normally
+
+    with open(path_config.api_output_path, "r") as file:
+        gpt_response = file.read()
+    window_width , window_height = calculate_window_size(gpt_response)
+
     root = tk.Tk()
+    style = ttk.Style(root)
+    style.theme_use('clam') 
     root.title("GPT Response")
 
-    file_path = config.file_path
-    with open(file_path, "r") as file:
-        gpt_response = file.read()
+    root.geometry(f"{window_width}x{window_height}+500+0")
+
+    root.configure(bg = '#FAF0E6')
+
+    
+
 
     parsed_sections = find_code(gpt_response)
     for section_text, is_code_section in parsed_sections:
         if is_code_section:
             frame = tk.Frame(root)
-            frame.pack(expand=True, fill='both', padx=3, pady=3)
+            frame.pack(expand=True, fill='both', padx=3, pady=1)
             create_code_text_widget(frame, section_text)
         else:
             create_label_widget(root, section_text)
 
     root.mainloop()
 
+# def update_scroll_region():
+#     root.update_idletasks()  # Update the layout to get the correct size
+#     canvas.config(scrollregion=canvas.bbox("all"))
+
+
 if __name__ == '__main__':
+
     main_s()
 
