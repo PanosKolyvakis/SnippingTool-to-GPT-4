@@ -8,7 +8,7 @@ Example use:
 Using the snipping tool to rewrite an email:
 
 
-<img width="427" alt="Screenshot 2024-01-26 at 20 06 50" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/2d80f726-3e86-4fc2-9f4f-39aca27df2e8">
+<img width="500" alt="Screenshot 2024-01-26 at 20 06 50" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/2d80f726-3e86-4fc2-9f4f-39aca27df2e8">
 
 
 
