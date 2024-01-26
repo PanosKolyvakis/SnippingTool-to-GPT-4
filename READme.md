@@ -7,9 +7,8 @@ Added - IDE- like code functionality. A lot of processing of GPT responses to se
 Example use:
 Using the snipping tool to rewrite an email:
 
-<img width="937" alt="Screenshot 2024-01-26 at 19 57 07" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/67041fb3-f25d-41e6-a481-22bac283efca">
 
-
+<img width="427" alt="Screenshot 2024-01-26 at 20 06 50" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/dedb9176-8c2b-4973-bf92-2b5bfae8b649">
 
 
 *** Modify the prompt on the main.py according to what you are trying to do ***
