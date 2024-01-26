@@ -1,7 +1,10 @@
+
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
+from Config import PathConfig
 
+PathConfig = PathConfig()
 def run_gui():
     def get_selected_prompt():
         selected_value = prompt_var.get()
@@ -16,12 +19,43 @@ def run_gui():
     def get_selected_model():
         return gpt_var.get() 
 
+    def update_textbox(final_prompt):
+        # Clear the current content in the output area
+        for widget in output_frame.winfo_children():
+            widget.destroy()
+
+        # Create and pack a new textbox with the extracted text
+        output_text = tk.Text(output_frame, height=20, width=140)
+        output_text.insert(tk.END, f"Final Query to GPT: \n "  )
+
+        output_text.insert(tk.END, f"{final_prompt } \n \n")
+
+        with open(PathConfig.ocr_output_path, 'r') as file:
+            extracted_text = file.read()
+
+        output_text.insert(tk.END, f'Text extracted using OCR model: \n \n{extracted_text}' )
+
+        output_text.pack()
+        
+        
+
     def submit_and_close():
-        global selected_prompt , selected_model , custom_prompt
+
+        global selected_prompt, selected_model, custom_prompt , final_prompt
         selected_prompt = get_selected_prompt()
         selected_model = get_selected_model()
         custom_prompt = get_custom_prompt()
-        root.destroy()
+        # building the final prompt (dropbox , textbox or combined)
+        if selected_prompt and not custom_prompt:
+            final_prompt = prompts_instructions.get(selected_prompt, '')
+            if custom_prompt != '':
+                final_prompt = custom_prompt
+        else:
+            
+            final_prompt = prompts_instructions.get(selected_prompt, '') + ' ' + custom_prompt
+
+        update_textbox(final_prompt)
+
 
     root = tk.Tk()
     root.geometry("500x600+0+0")
@@ -30,6 +64,8 @@ def run_gui():
     root.title("OpenAI - GPT Response")
     root.configure(bg = '#FAF0E6')
     gpt_var = tk.StringVar(root)
+    output_frame = tk.Frame(root)
+    output_frame.pack(fill='both', expand=True)
     gpt_models = {'GPT-4' : 'GPT-4' , 'GPT-4-Turbo' : 'gpt-4-1106-preview' ,  'GPT-3.5' : 'gpt-3.5-turbo-1106'}
 
     prompt_menu = ttk.Combobox(root, textvariable=gpt_var ,values=list(gpt_models.keys()) )
@@ -37,8 +73,7 @@ def run_gui():
     gpt_var.set('GPT-4-Turbo' )
 
     prompt_menu.pack(pady=5, padx=8)
-    image_path = '/Users/panoskolyvakis/VSprojects/ImageToText/ImageGraphic.png'
-    image = Image.open(image_path)
+    image = Image.open(PathConfig.image_graphic) 
 
     # Resize the image to desired size, e.g., (width, height)
     image = image.resize((380, 350))
@@ -77,6 +112,12 @@ def run_gui():
     style.configure("TButton", background="#F5F5F5", foreground="black", font=('Helvetica', 14))
     submit_button.pack(pady=5, padx=5)
 
+    def close_window():
+        root.destroy()
+
+    close_button = ttk.Button(root, text="Close", command=close_window, style="TButton")
+    close_button.pack(pady=5, padx=5)
+
 
     root.mainloop()
 
@@ -95,4 +136,4 @@ def run_gui():
 
 if __name__ == '__main__':
 
-    print(run_gui())
+    run_gui()
