@@ -28,7 +28,7 @@ if [ $? -eq 0 ]; then
     # Call your Python script to process the screenshot
     # Assuming the script is in the same directory as the screenshot
     python3 "$screenshot_directory/main.py" > "$screenshot_directory/$output_filename" || echo "Error: Failed to run the script 'main.py'."
-	python3 "$screenshot_directory/IDE.py" || echo "Error: Failed to run the script 'IDE.py'."
+
 else
     echo "Screenshot capture canceled."
 fi
