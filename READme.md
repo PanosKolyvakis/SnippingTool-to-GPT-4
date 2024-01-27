@@ -5,10 +5,10 @@ The present is a macOS Quick Action automation tool that captures a selected scr
 
 Added - IDE- like code functionality. A lot of processing of GPT responses to seperate the result nicely into a tk GUI
 Example use:
-Using the snipping tool to rewrite an email:
 
+Dealing with a leetcode-type question:
 
-<img width="700" alt="Screenshot 2024-01-26 at 20 06 50" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/2d80f726-3e86-4fc2-9f4f-39aca27df2e8">
+<img width="600" alt="Screenshot 2024-01-27 at 17 39 59" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/1b6abe3e-2d30-4130-88b0-bee1a1e43ae2">
 
 
 
