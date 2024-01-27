@@ -10,12 +10,19 @@ Dealing with a leetcode-type question:
 
 <img width="750" alt="Screenshot 2024-01-27 at 17 39 59" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/1b6abe3e-2d30-4130-88b0-bee1a1e43ae2">
 
+Other built-in example uses:
+
+Email Rewriting: Improve the clarity, tone, or formality of your emails, making them more effective and professional.
+
+Code Explanation: Get line-by-line explanations of code snippets, enhancing understanding for learning and debugging purposes.
+
+Text Rewriting: Transform the style or tone of any text while retaining the original meaning, ideal for content adaptation and customization.
+
+General Overview: Quickly generate summaries or overviews of large documents or topics, saving time on research and reading.
+Verbal Reasoning: Engage in logical reasoning tasks, answer hypothetical questions, and solve puzzles using advanced language comprehension skills.
 
 
-
-
-
-*** Modify the prompt on the main.py according to what you are trying to do ***
+*** Modify and edit the prompt on the main.py according to what you are trying to do ***
 ## Setup
 To use SmartCapture, follow these steps to set up the environment and dependencies on your Mac:
 
