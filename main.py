@@ -32,21 +32,26 @@ def get_response_from_openai_api(extracted_text, prompt, selected_model):
 if __name__ == "__main__":
 
     PathConfig = PathConfig()
-
+    
     extracted_text = process_image_with_ocr(PathConfig.screenshot_path)
+    if extracted_text:
 
-    # Write the extracted text to the OCR output path
-    with open(PathConfig.ocr_output_path, 'w') as file:
-        file.write(extracted_text)
+        # Write the extracted text to the OCR output path
+        with open(PathConfig.ocr_output_path, 'w') as file:
+            file.write(extracted_text)
 
-    selected_prompt, selected_model = run_gui()
-    output_text = get_response_from_openai_api(extracted_text, selected_prompt, selected_model)
+        selected_prompt, selected_model = run_gui()
 
-
-    with open(PathConfig.api_output_path, 'w') as file:
-        
-        file.write(output_text)
+        if selected_prompt:
+            output_text = get_response_from_openai_api(extracted_text, selected_prompt, selected_model)
 
 
-    main_s()
+            
+        with open(PathConfig.api_output_path, 'w') as file:
+            
+            file.write(output_text)
 
+
+        main_s()
+    else:
+        pass 
