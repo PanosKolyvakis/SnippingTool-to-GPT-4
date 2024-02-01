@@ -19,44 +19,51 @@ def run_gui():
     def get_selected_model():
         return gpt_var.get() 
 
+
     def update_textbox(final_prompt):
-        # Clear the current content in the output area
+
         for widget in output_frame.winfo_children():
             widget.destroy()
 
-        # Create and pack a new textbox with the extracted text
-        output_text = tk.Text(output_frame, height=20, width=140)
-        output_text.insert(tk.END, f"Final Query to GPT: \n "  )
+        output_text = tk.Text(output_frame, height=50, width=140)
 
-        output_text.insert(tk.END, f"{final_prompt } \n \n")
+        # Define custom tags
+        output_text.tag_configure('final_prompt_style', foreground='green', font=('Arial', 13, 'bold'))
+        output_text.tag_configure('ocr_text_style', foreground='red', font=('Arial', 13, 'bold'))
+        output_text.tag_configure('general_text' , foreground= 'white' , font = ('Arial' , 13 ))
+        # Insert text with tags
+        output_text.insert(tk.END, "Final Query to GPT: \n", 'final_prompt_style')
+        output_text.insert(tk.END, f"{final_prompt}\n\n " , 'general_text')
 
         with open(PathConfig.ocr_output_path, 'r') as file:
             extracted_text = file.read()
 
-        output_text.insert(tk.END, f'Text extracted using OCR model: \n \n{extracted_text}' )
+        output_text.insert(tk.END, "Text extracted using OCR model (Feel Free to Edit !): \n\n", 'ocr_text_style')
+        output_text.insert(tk.END, extracted_text, 'general_text')
 
         output_text.pack()
-        
+
         
 
     def submit_and_close():
+        try:
+            global selected_prompt, selected_model, custom_prompt , final_prompt
+            selected_prompt = get_selected_prompt()
+            selected_model = get_selected_model()
+            custom_prompt = get_custom_prompt()
+            # building the final prompt (dropbox , textbox or combined)
+            if selected_prompt and not custom_prompt:
+                final_prompt = prompts_instructions.get(selected_prompt, '')
+                if custom_prompt != '':
+                    final_prompt = custom_prompt
+            else:
+                
+                final_prompt = prompts_instructions.get(selected_prompt, '') + ' ' + custom_prompt
 
-        global selected_prompt, selected_model, custom_prompt , final_prompt
-        selected_prompt = get_selected_prompt()
-        selected_model = get_selected_model()
-        custom_prompt = get_custom_prompt()
-        # building the final prompt (dropbox , textbox or combined)
-        if selected_prompt and not custom_prompt:
-            final_prompt = prompts_instructions.get(selected_prompt, '')
-            if custom_prompt != '':
-                final_prompt = custom_prompt
-        else:
-            
-            final_prompt = prompts_instructions.get(selected_prompt, '') + ' ' + custom_prompt
+            update_textbox(final_prompt)
 
-        update_textbox(final_prompt)
-
-
+        except Exception as e:
+            update_textbox(e)
     root = tk.Tk()
     root.geometry("500x600+0+0")
     style = ttk.Style(root)
@@ -66,7 +73,7 @@ def run_gui():
     gpt_var = tk.StringVar(root)
     output_frame = tk.Frame(root)
     output_frame.pack(fill='both', expand=True)
-    gpt_models = {'GPT-4' : 'GPT-4' , 'GPT-4-Turbo' : 'gpt-4-1106-preview' ,  'GPT-3.5' : 'gpt-3.5-turbo-1106'}
+    gpt_models = {'GPT-4' : 'GPT-4' , 'GPT-4-Turbo' : 'gpt-4-1106-preview' ,  'GPT-3.5' : 'gpt-3.5-turbo-1106' , 'gtp-4-vision' :'gpt-4-vision-preview'}
 
     prompt_menu = ttk.Combobox(root, textvariable=gpt_var ,values=list(gpt_models.keys()) )
 
@@ -93,7 +100,7 @@ def run_gui():
         'General overview': "Give me a general overview of this text, what does the author mean",
         'Coding question': "this is a coding question, please return your best effort in writing code to solve the question",
         'Rewrite this Text': 'Rewrite the following text',
-        'Explain code': 'write this code line by line in different boxes and explain each line of the code separately. Use ``` line of code ``` and then explanation in formatting'
+        'Explain code': 'write this code line by line in different boxes and explain each line of the code separately. Use ``` important: dont specify the coding language (e.g python) here you return just the line of code ```.'
         # these ``` are used on how the IDE.py works. please do not edit
     }
 
@@ -132,7 +139,7 @@ def run_gui():
         final_prompt = prompts_instructions.get(selected_prompt, '') + ' ' + custom_prompt
 
 
-    return final_prompt , gpt_models[selected_model]
+    return final_prompt if final_prompt else None, gpt_models[selected_model]
 
 if __name__ == '__main__':
 
