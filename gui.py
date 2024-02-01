@@ -47,23 +47,31 @@ def run_gui():
 
     def submit_and_close():
         try:
-            global selected_prompt, selected_model, custom_prompt , final_prompt
+            global selected_prompt, selected_model, custom_prompt, final_prompt
             selected_prompt = get_selected_prompt()
             selected_model = get_selected_model()
             custom_prompt = get_custom_prompt()
-            # building the final prompt (dropbox , textbox or combined)
+            
+            # Building the final prompt (dropbox, textbox, or combined)
             if selected_prompt and not custom_prompt:
                 final_prompt = prompts_instructions.get(selected_prompt, '')
                 if custom_prompt != '':
                     final_prompt = custom_prompt
             else:
-                
                 final_prompt = prompts_instructions.get(selected_prompt, '') + ' ' + custom_prompt
 
-            update_textbox(final_prompt)
+            # Check if the selected model is GPT-4-VISION
+            if selected_model == 'GPT-4-VISION':
+
+                root.destroy()
+            else:
+                # If any other model is selected, update the textbox with the final prompt
+                update_textbox(final_prompt)
 
         except Exception as e:
-            update_textbox(e)
+            update_textbox(str(e)) 
+
+
     root = tk.Tk()
     root.geometry("500x600+0+0")
     style = ttk.Style(root)
@@ -73,7 +81,7 @@ def run_gui():
     gpt_var = tk.StringVar(root)
     output_frame = tk.Frame(root)
     output_frame.pack(fill='both', expand=True)
-    gpt_models = {'GPT-4' : 'GPT-4' , 'GPT-4-Turbo' : 'gpt-4-1106-preview' ,  'GPT-3.5' : 'gpt-3.5-turbo-1106' , 'gtp-4-vision' :'gpt-4-vision-preview'}
+    gpt_models = {'GPT-4' : 'GPT-4' , 'GPT-4-Turbo' : 'gpt-4-1106-preview' ,  'GPT-3.5' : 'gpt-3.5-turbo-1106' , 'GPT-4-VISION' :'gpt-4-vision-preview'}
 
     prompt_menu = ttk.Combobox(root, textvariable=gpt_var ,values=list(gpt_models.keys()) )
 
