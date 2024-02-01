@@ -1,5 +1,3 @@
-# import statements
-
 from PIL import Image
 import openai
 from gui import run_gui
@@ -10,7 +8,7 @@ import pytesseract
 def process_image_with_ocr(image_path):
     image = Image.open(image_path)
     extracted_text = pytesseract.image_to_string(image)
-    return extracted_text
+    return extracted_text if extracted_text else None
 
 def get_response_from_openai_api(extracted_text, prompt, selected_model):
     openai.api_key = PathConfig.api_key
@@ -19,7 +17,7 @@ def get_response_from_openai_api(extracted_text, prompt, selected_model):
     try:
         response = openai.ChatCompletion.create(
             model=selected_model,
-            messages=[
+            messages=[ 
                 {"role": "system", "content": "check prompt"},
                 {"role": "user", "content": prompt_text}
             ]
@@ -55,3 +53,4 @@ if __name__ == "__main__":
         main_s()
     else:
         pass 
+
