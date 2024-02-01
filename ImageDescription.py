@@ -4,7 +4,7 @@ import base64
 import requests
 from Config import PathConfig
 
-# Assuming PathConfig is correctly set up and accessible
+
 path_config = PathConfig()
 
 def ImDescribe():
