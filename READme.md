@@ -10,7 +10,7 @@ The bash script can be bound to the MacOS keyboard (e.g. cmd + shift + m) to gen
 
 Dealing with a leetcode-type question:
 
-<img width="700" alt="Screenshot 2024-01-27 at 17 39 59" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/1b6abe3e-2d30-4130-88b0-bee1a1e43ae2">
+<img width="670" alt="Screenshot 2024-01-27 at 17 39 59" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/1b6abe3e-2d30-4130-88b0-bee1a1e43ae2">
 
 Other built-in example uses:
 
