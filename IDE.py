@@ -16,27 +16,28 @@ class config:
 
 
 
-def apply_code_highlighting(text_widget):
+def apply_code_highlighting(text_widget , delimiter ="```" ):
     # Dictionary mapping syntax groups to colors
     syntax_colors = {
-        'class' : '#98FB98' ,
+        'class' : '#98FB98',
         'keyword': '#1976D2',
         'builtin': '#D32F2F',
-        'string': 'green',
+        'string': '#90EE90',
         'boolean': 'purple',
-        
         'decorator': 'magenta',
+        'comment': 'green'
 
     }
+
     syntax_patterns = {
         'class': ['class' , 'self'],
-        'keyword': ['def', 'if', 'else', 'elif', 'while', 'for', 'break', 'continue', 'try', 'except', 'with', 'as', 'yield', 'range' , 'return'],
+        'keyword': ['def', 'if', 'else', 'elif', 'while', 'for', 'break', 'continue', 'try', 'except', 'with', 'as', 'yield', 'range', 'return'],
         'builtin': ['print', 'len', 'open', 'int', 'str', 'float', 'type', 'format', 'min', 'max', 'sum', 'list', 'dict', 'set', 'tuple'],
-        'string': r'\"[^\"]*\"|\'[^\']*\'',  
+        'string': r'\"[^\"]*\"|\'[^\']*\'',
         'boolean': ['True', 'False', 'None'],
-        'decorator': ['@']
-
-}
+        'decorator': ['@'],
+        'comment': r'#.*'  # Regular expression for comments
+    }
 
     # Configure tags in the text widget for each syntax group
     for syntax_group, color in syntax_colors.items():
@@ -44,8 +45,8 @@ def apply_code_highlighting(text_widget):
 
     # Apply syntax highlighting for each syntax group
     for syntax_group, patterns in syntax_patterns.items():
-        if syntax_group == 'string' or syntax_group == 'operator':
-            # Handle regular expressions (like string literals and operators)
+        if syntax_group in ['string', 'comment']:
+            # Handle regular expressions (like string literals and comments)
             start_idx = '1.0'
             while True:
                 start_idx = text_widget.search(patterns, start_idx, stopindex='end', regexp=True)
@@ -68,21 +69,50 @@ def apply_code_highlighting(text_widget):
 
 
 
+
+# def create_label_widget(frame, text):
+#     """Create a text widget for non-code text with dynamic height based on the text length and window width."""
+
+#     def calculate_text_height(text, window_width, font_size):
+#         """Estimate the number of lines the text will occupy."""
+#         avg_char_width = font_size * 0.6  
+#         max_chars_per_line = window_width / avg_char_width
+#         lines = text.split('\n')
+#         total_lines = sum(len(line) / max_chars_per_line for line in lines)
+#         return max(int(total_lines), 1)  # Ensure minimum height is 1
+
+#     text_height = calculate_text_height(text, config.window_width, config.font_size)
+
+#     # Create a text widget with calculated height
+#     text_widget = tk.Text(frame, font=(config.font_type, config.font_size), wrap='word', height=text_height, bd=0, highlightthickness=0, bg='#FAF0E6', fg='black')
+
+#     # Insert the provided text
+#     text_widget.insert('1.0', text)
+
+#     # Make the text widget read-only
+#     text_widget.config(state='disabled')
+
+#     # Pack the text widget
+#     text_widget.pack(fill='both', expand=True, padx=15, pady=15)
+
+#     return text_widget
 def create_label_widget(frame, text):
     """Create a text widget for non-code text with dynamic height based on the text length and window width."""
+    def calculate_text_height(text , chars_per_line):
 
-    def calculate_text_height(text, window_width, font_size):
-        """Estimate the number of lines the text will occupy."""
-        avg_char_width = font_size * 0.6  # Rough estimate of average character width
-        max_chars_per_line = window_width / avg_char_width
-        lines = text.split('\n')
-        total_lines = sum(len(line) / max_chars_per_line for line in lines)
+        """Estimate the number of lines the text will occupy based on a fixed number of characters per line."""
+        total_chars = len(text)
+        total_lines = total_chars / chars_per_line
         return max(int(total_lines), 1)  # Ensure minimum height is 1
 
-    text_height = calculate_text_height(text, config.window_width, config.font_size)
+    # Define the number of characters that fit into a single line
+    chars_per_line = 120
+
+    text_height = calculate_text_height(text, chars_per_line)
 
     # Create a text widget with calculated height
-    text_widget = tk.Text(frame, font=(config.font_type, config.font_size), wrap='word', height=text_height, bd=0, highlightthickness=0, bg='#FAF0E6', fg='black')
+    text_widget = tk.Text(frame, font=(config.font_type, config.font_size), wrap='word',
+                          height=text_height, bd=0, highlightthickness=0, bg='#FAF0E6', fg='black')
 
     # Insert the provided text
     text_widget.insert('1.0', text)
@@ -96,74 +126,44 @@ def create_label_widget(frame, text):
     return text_widget
 
 
-# def create_code_text_widget(frame, code_text):
-#     """Create a Text widget for a block of code."""
-#     max_height = 3
-#     frame.config(bg=config.background_color , highlightthickness=0, bd= 0 )
-#     text_widget = tk.Text(frame, wrap='none', font=(config.code_font_type, config.font_size), 
-#                           height=max_height, bg=config.background_color, fg='black',  # Set bg color
-#                           bd=0.1, highlightthickness=1)  # Set border and highlight thickness to 0
 
-#     apply_code_highlighting(text_widget)
-
-#     lines = code_text.split('\n')
-#     for line in lines:
-#         # Calculate the current line's indentation (number of leading spaces)
-#         indentation = len(line) - len(line.lstrip())
-        
-#         # Insert the line with the correct indentation
-#         text_widget.insert('end', ' ' * indentation + line.lstrip() + '\n')
-
-#     if len(lines) > max_height:
-#         # If there are more lines than the maximum height, add a vertical scrollbar
-#         scroll_y = tk.Scrollbar(frame, orient="vertical", command=text_widget.yview)
-#         text_widget.configure(yscrollcommand=scroll_y.set)
-#         scroll_y.pack(side='right', fill='y')
-
-#     text_widget.pack(side='left', expand=True, fill='both', padx=10, pady=2)
-#     text_widget.config(state='disabled')
-
-#     copy_button = tk.Button(frame, text="Copy", command=lambda widget=text_widget: copy_code(widget), 
-#                             bg=config.background_color, relief='flat')  # Set the bg color to match your background
-
-#     copy_button.pack(side='bottom', padx=5, pady=2)
-    
-#     return apply_code_highlighting(text_widget)
 def create_code_text_widget(frame, code_text):
-    """Create a Text widget for a block of code."""
-    max_height = 1
-    # Choose a less dark color, e.g., dark grey
-    code_bg_color = '#2b2b2b'  # This is a softer dark color
+    """Create a Text widget for a block of code with dynamic height."""
+    lines = code_text.split('\n')  # Splitting the text into lines
 
-    # Configure the frame to have no border and match the Text widget bg color
+    max_height = len(lines)  # Calculate height based on the number of lines
+
+    code_bg_color = '#2b2b2b'  # Background color for the code widget
+
     frame.config(bg=code_bg_color, bd=0, highlightthickness=0)
 
     text_widget = tk.Text(frame, wrap='none', font=(config.code_font_type, config.font_size),
-                          height=max_height, bg=code_bg_color, fg='white', insertbackground='white',
+                          height=max_height, bg=code_bg_color, fg='white',
                           bd=0, highlightthickness=0, padx=10, pady=0)
 
     apply_code_highlighting(text_widget)
 
-    # Insert the code text
-    lines = code_text.split('\n')
     for line in lines:
-        text_widget.insert('end', line + '\n')
+        if line.startswith('python') or line.startswith('cpp'):
+            continue
+        text_widget.insert('end', line + '\n')  # Insert each line into the widget
 
-    # If there are more lines than the maximum height, add a scrollbar
-    if len(lines) > max_height:
+    # Add a scrollbar if there are more lines than the height of the widget
+    if max_height > 1:
         scroll_y = tk.Scrollbar(frame, orient="vertical", command=text_widget.yview, bg=code_bg_color)
         text_widget.configure(yscrollcommand=scroll_y.set)
-        scroll_y.pack(side='right', fill='y', in_=text_widget)
+        scroll_y.pack(side='right', fill='y')
 
     text_widget.pack(side='top', fill='both', expand=True, padx=10, pady=2)
-    text_widget.config(state='disabled')
+    text_widget.config(state='disabled')  # Making the widget read-only
 
-    # Create the copy button within the frame, with no border
+    # Button for copying code
     copy_button = tk.Button(frame, text="Copy", command=lambda: copy_code(text_widget),
                             bg=code_bg_color, fg='black', relief='flat', highlightthickness=0)
     copy_button.pack(side='right', padx=10, pady=2)
 
-    return apply_code_highlighting(text_widget)
+    return apply_code_highlighting(text_widget , delimiter= "```")
+
 
 
 
@@ -229,14 +229,14 @@ def calculate_window_size(gpt_response, max_width=config.window_width, max_heigh
 
 def main_s():
     global root
-    # configuring the position, color and size of the background
 
     path_config = PathConfig()
     # path_config.api_output_path --- > this should be run normally
-
+    #config.multiple_test_path
     with open(path_config.api_output_path, "r") as file:
         gpt_response = file.read()
     window_width , window_height = calculate_window_size(gpt_response)
+    # configuring the position, color and size of the background
 
     root = tk.Tk()
     style = ttk.Style(root)
@@ -269,4 +269,3 @@ def main_s():
 if __name__ == '__main__':
 
     main_s()
-
