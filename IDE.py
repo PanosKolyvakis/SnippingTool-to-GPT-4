@@ -14,8 +14,6 @@ class config:
     background_color = '#FAF0E6' # shade of white in HTML syntax
     code_widget_color = '#333333'
 
-
-
 def apply_code_highlighting(text_widget , delimiter ="```" ):
     # Dictionary mapping syntax groups to colors
     syntax_colors = {
