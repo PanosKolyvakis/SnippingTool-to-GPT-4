@@ -1,3 +1,7 @@
+
+*** new feature added: Image description using GPT-4-Vision (developer version)
+
+<img width="602" alt="Screenshot 2024-02-02 at 00 46 38" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/b2ff2e73-3b5d-4c0b-b681-4b4903ec40a5">
 Keyboard-SnippingTool-Extraction-ToGPT
 
 ## Overview
@@ -20,10 +24,6 @@ Email Rewriting: Improve the clarity, tone, or formality of your emails, making 
 Code Explanation: Get line-by-line explanations of code snippets, enhancing understanding for learning and debugging purposes.
 
 Text Rewriting: Transform the style or tone of any text while retaining the original meaning, ideal for content adaptation and customization.
-
-*** new feature added: Image description using GPT-4-Vision (developer version)
-
-<img width="602" alt="Screenshot 2024-02-02 at 00 46 38" src="https://github.com/PanosKolyvakis/Keyboard-SnippingTool-Extraction-ToGPT/assets/114179217/b2ff2e73-3b5d-4c0b-b681-4b4903ec40a5">
 
 General Overview: Quickly generate summaries or overviews of large documents or topics, saving time on research and reading.
 Verbal Reasoning: Engage in logical reasoning tasks, answer hypothetical questions, and solve puzzles using advanced language comprehension skills.
