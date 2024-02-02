@@ -50,7 +50,22 @@ cd -to directory
 Install the required Python dependencies using the provided requirements.txt file:
 
 ```bash
-conda install -r requirements.txt
+#!/bin/bash
+
+# Create and activate Conda environment
+conda create --name myenv python=3.8 -y
+conda activate myenv
+
+# Install Conda requirements
+conda install --file conda-requirements.txt -y
+
+# Ensure pip is installed in the environment
+conda install pip -y
+
+# Install pip requirements
+pip install -r pip-requirements.txt
+
+echo "Installation completed."
 ```
 ### Step 3: Set the OpenAI API Key
 Set your OpenAI API key as an environment variable on your Mac for security:
