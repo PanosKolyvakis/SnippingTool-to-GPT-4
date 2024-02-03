@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 import base64
 import requests
 import os
-from Config import PathConfig  # Ensure this is correctly configured
+from Config import PathConfig 
 import subprocess
 
 path_config = PathConfig()
@@ -21,10 +21,10 @@ def ImDescribe(prompt='Describe this picture'):
         "Authorization": f"Bearer {path_config.api_key}"
     }
 
-    # Corrected the structure for payload as per assumed API documentation
+
     payload = {
         "prompt": prompt,
-        "image": base64_image,  # Assuming this is the correct field for your API
+        "image": base64_image, 
         "max_tokens": 300
     }
 
@@ -69,7 +69,7 @@ def display_gui(image_path, description):
     description_label = tk.Label(root, text=description, wraplength=500)
     description_label.pack(side="bottom", fill="x", expand="yes")
 
-    # Fixed command assignment to a lambda to delay execution
+
     read_button = tk.Button(root, text="Read Description", command=lambda: read_description_aloud())
     read_button.pack(side="bottom")
 
@@ -77,5 +77,5 @@ def display_gui(image_path, description):
 
 if __name__ == '__main__':
     image_path = path_config.screenshot_path
-    description = ImDescribe()  # Call ImDescribe to generate the description based on the image
+    description = ImDescribe() 
     display_gui(image_path, description)
