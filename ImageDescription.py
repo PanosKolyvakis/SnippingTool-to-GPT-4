@@ -1,3 +1,23 @@
+"""
+This script provides a utility to describe images using an AI model and display the image alongside its description in a GUI. 
+It encodes images to base64, sends them to an AI service for description, and then reads the description aloud. 
+The script uses Tkinter for the GUI, PIL for image processing, and subprocesses for text-to-speech functionalities.
+
+Features:
+- Image encoding to base64 for API submission.
+- AI model integration for generating descriptions of images.
+- Displaying images and their descriptions in a GUI.
+- Reading descriptions aloud using the system's text-to-speech capabilities.
+- External configuration management through a Config module.
+
+Dependencies:
+- Tkinter for the GUI.
+- PIL (Python Imaging Library) for image processing.
+- Requests for API communication.
+- os and subprocess modules for system operations and text-to-speech.
+- External Config module for path and API key configurations.
+"""
+
 import tkinter as tk
 from PIL import Image, ImageTk
 import base64
