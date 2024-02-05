@@ -1,3 +1,18 @@
+"""
+This script utilizes Tkinter to create a graphical user interface (GUI) that allows users to interact with an AI model
+for generating responses based on a selected or custom prompt. It integrates image handling through PIL for displaying an image
+within the GUI, which can guide the user's interaction or query. The GUI supports selecting an AI model and prompt type from predefined
+options or entering a custom prompt. After submission, it processes the input to either display the constructed query within the GUI
+or proceed with further actions based on the selected AI model. This script exemplifies the use of external configuration for paths and
+settings, GUI elements for user interaction, and dynamic text update mechanisms within a Tkinter frame.
+
+Features:
+- Dynamic selection of AI models and prompt types.
+- Custom prompt input for flexible queries.
+- Display of an image to guide user interaction.
+- Updateable text output area for displaying constructed queries or error messages.
+- External configuration via a Config module for easy customization and path management.
+"""
 
 import tkinter as tk
 from tkinter import ttk
