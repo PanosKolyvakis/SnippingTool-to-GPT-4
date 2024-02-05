@@ -1,3 +1,17 @@
+"""
+This script creates a GUI application using Tkinter to display and interact with the output of a GPT (Generative Pre-trained Transformer) model response.
+It supports highlighting syntax for code sections and presents non-code text in a readable format. The application can dynamically adjust its window size
+based on the content length, display code with syntax highlighting, and allows users to copy code snippets to the clipboard. It relies on configurations
+defined in a separate Config module for paths and other settings.
+
+Features:
+- Dynamic window sizing based on content length
+- Syntax highlighting for Python code snippets
+- Displaying non-code text in a formatted way
+- Ability to copy code snippets to clipboard
+- Utilizes configurations from an external file for paths and settings
+"""
+
 import tkinter as tk
 from tkinter import ttk
 import re
